@@ -1,0 +1,46 @@
+<!Doctype html>
+<html>
+<style>
+.btn-group button {
+  background-color: #04AA6D; /* Green background */
+  border: 1px solid green; /* Green border */
+  color: white; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  float: left; /* Float the buttons side by side */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.btn-group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #3e8e41;
+}
+</style>
+
+<body>
+
+
+
+<h1>Hello</h1>
+
+<div class="btn-group">
+  <button><a href="{% url 'registration_view_name' %}" class="new-user-button">New User</a></button>
+  <button><a href="{% url 'login' %}" class="returning-user-button">Returning User</a></button>
+  <button><a href="{% url 'user_dashboard' %}" class="user-dashboard-button">User Dashboard</a></button>
+  <button><a href="{% url 'admin:index' %}" class="admin-link">Admin</a></button>
+</div>
+
+
+</body>
+
+</html>

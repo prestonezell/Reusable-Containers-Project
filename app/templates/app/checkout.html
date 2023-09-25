@@ -1,0 +1,12 @@
+<!-- myapp/checkout.html -->
+<h1>Checkout</h1>
+<ul>
+    {% for user_product in user_products %}
+        <li>{{ user_product.product.name }} - ${{ user_product.product.price }}</li>
+    {% endfor %}
+</ul>
+<!-- Add a form for completing the checkout process -->
+<form method="post" action="{% url 'process_checkout' %}">
+    {% csrf_token %}
+    <button type="submit">Complete Checkout</button>
+</form>

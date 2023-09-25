@@ -1,0 +1,37 @@
+<!-- track_products.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Products with Collector</title>
+</head>
+<body>
+    <h1>Products with Collector</h1>
+    <button><a href="{% url 'view_products' %}" class="view-products-button">View Products</a></button>
+    <button><a href="{% url 'user_dashboard' %}" class="user-dashboard-button">User Dashboard</a></button>
+    <button><a href="{% url 'homepage' %}" class="homepage-button">Homepage</a></button>
+    <button><a href="{% url 'user_logout' %}">Logout</a></button>
+    <ul>
+        {% for product in products_with_collector %}
+            <li>
+                Brand: {{ product.brand_name }}<br>
+                Product Name: {{ product.product_name }}<br>
+                Material Type: {{ product.material_type }}<br>
+                Price: ${{ product.price }}<br>
+                {% if user == product.user %}
+                    <a href="{% url 'transfer_to_plant' product.id %}">Transfer to Plant</a>
+                {% else %}
+                    <p></p>
+                {% endif %}
+                <form method="post" action="{% url 'return_product_to_available' product.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Return to Available</button>
+                </form>
+            </li>
+        {% empty %}
+            <p>No products with the collector.</p>
+        {% endfor %}
+    </ul>
+</body>
+</html>

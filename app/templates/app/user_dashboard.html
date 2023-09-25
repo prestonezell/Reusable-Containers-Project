@@ -1,0 +1,42 @@
+<!-- user_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ user.username }}!</h1>
+    <p>This is your user dashboard. You can add content and functionality here.</p>
+    <button><a href="{% url 'view_products' %}" class="view-products-button">View Products</a></button>
+    <button><a href="{% url 'track_products_with_collector' %}" class="track-products-button">Track Products</a></button>
+    <button><a href="{% url 'homepage' %}" class="homepage-button">Homepage</a></button>
+    
+    <button><a href="{% url 'user_logout' %}">Logout</a></button>
+    {% block content %}
+    <h1>User Dashboard</h1>
+    <ul>
+        {% for product in user_products %}
+            <li>
+                Brand: {{ product.brand_name }}<br>
+                Product Name: {{ product.product_name }}<br>
+                Material Type: {{ product.material_type }}<br>
+                Price: ${{ product.price }}<br>
+                 {% if not product.with_collector %}
+            <form method="post" action="{% url 'give_to_collector' product.id %}">
+                {% csrf_token %}
+                <button type="submit">Give to Collector</button>
+            </form>
+        {% else %}
+            <p>With Collector</p>
+        {% endif %}
+            </li>
+        {% empty %}
+            <p>No products available.</p>
+        {% endfor %}
+    </ul>
+
+    {% endblock %}
+</body>
+</html>
