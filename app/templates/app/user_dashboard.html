@@ -1,42 +1,98 @@
 <!-- user_dashboard.html -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../../static/user_dashboard.css" />
+    <script src="{% static 'script.js' %}"></script>
     <title>User Dashboard</title>
 </head>
 <body>
-    <h1>Welcome, {{ user.username }}!</h1>
-    <p>This is your user dashboard. You can add content and functionality here.</p>
-    <button><a href="{% url 'view_products' %}" class="view-products-button">View Products</a></button>
-    <button><a href="{% url 'track_products_with_collector' %}" class="track-products-button">Track Products</a></button>
-    <button><a href="{% url 'homepage' %}" class="homepage-button">Homepage</a></button>
-    
-    <button><a href="{% url 'user_logout' %}">Logout</a></button>
-    {% block content %}
-    <h1>User Dashboard</h1>
-    <ul>
-        {% for product in user_products %}
-            <li>
-                Brand: {{ product.brand_name }}<br>
-                Product Name: {{ product.product_name }}<br>
-                Material Type: {{ product.material_type }}<br>
-                Price: ${{ product.price }}<br>
-                 {% if not product.with_collector %}
-            <form method="post" action="{% url 'give_to_collector' product.id %}">
-                {% csrf_token %}
-                <button type="submit">Give to Collector</button>
-            </form>
-        {% else %}
-            <p>With Collector</p>
-        {% endif %}
-            </li>
-        {% empty %}
-            <p>No products available.</p>
-        {% endfor %}
-    </ul>
-
-    {% endblock %}
+    <div class="container">
+        <div class="head-nav">
+            <header>
+                <div id="logo">
+                    <a href="homepage.html" class="homepage-button">
+                        <img src="{% static 'Logo_Transparent.png' %}">
+                    </a>
+                </div>
+                <div id="title">
+                    User Dashboard
+                </div>
+            </header>
+            <nav class="menu">
+                <ul>
+                    <li><a href="homepage.html">Home </a></li>
+                    <li><a href="login.html">Returning User </a></li>
+                    <li><a href="track_products.html">Track Products </a></li>
+                    <li><a href="view_products.html">Browse Products </a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="banner">
+            <div class="welcome">
+                <h1>Welcome, {{ user.username }}!</h1>
+                <p>This is your user dashboard. You can add content and functionality here.</p>
+                <ul>
+               
+                </ul>
+            </div>
+            <div class="dash">
+                <div class="test">
+                    <div class="prog">
+                        <h1>Container Repurposing Status</h1><br>
+                        <div class="progress-bar">
+                        <div class="step active">Container Purchased</div>
+                        <div class="step">Container Returned for Recycling</div>
+                        <div class="step">Cleaning/Repurposing Underway</div>
+                        <div class="step">Container Back on Shelves</div>
+                    </div>
+                    <br><form method="post" action="">
+                        <button class="submit" type="submit">Update Progress</button>
+                    </form>
+                    </div>
+                    </div>
+                    <div class="products-container">
+                        <div class="product">
+                            <h2>Product Name: Product 1</h2>
+                            <p>Status: <span class="status available">Available</span></p>
+                            <button class="move-button">Move to Collector</button>
+                        </div>
+                    
+                        <div class="product">
+                            <h2>Product Name: Product 2</h2>
+                            <p>Status: <span class="status collector">With Collector</span></p>
+                            <button class="move-button">Move to Available</button>
+                        </div>
+                        <script src="script.js"></script>
+                    </div>
+                    <div class="row">
+                        <div class="box small-box">
+                            <h2>Points Counter</h2>
+                        </div>
+                        <div class="box small-box">
+                            <h2>Number of Containers Recycled</h2>
+                        </div>
+                        <div class="box large-box">
+                            <h2>iframe for "view_products" page. mini scrollable list</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="box small-box">
+                            <h2>Etc</h2>
+                        </div>
+                        <div class="box large-box">
+                            <h2>Etc</h2>
+                        </div>
+                        <div class="box small-box">
+                            <h2>Etc</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+        <button class="logout-button"><a href="{% url 'user_logout' %}">Logout</a></button>
+    </div>  
 </body>
 </html>

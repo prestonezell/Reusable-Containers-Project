@@ -1,21 +1,54 @@
-<!-- registration.html -->
+{% load static %}
 <!DOCTYPE html>
-<html>
-<head>
-    <title>User Registration</title>
-</head>
-<body>
-    <h1>User Registration</h1>
-    <form method="post" action="{% url 'registration_view_name' %}">
-        {% csrf_token %}
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required><br><br>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../../static/registration.css" />
+        <title>Registration</title>
+    </head>
 
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required><br><br>
 
-        <input type="submit" value="Register">
-    </form>
-    <button><a href="{% url 'homepage' %}" class="homepage-button">Homepage</a></button>
-</body>
+    <body>
+        <div class="head-nav">
+            <header>
+                <div id="logo">
+                    <a href="homepage.html" class="homepage-button">
+                        <img src="{% static 'Logo_Transparent.png' %}">
+                    </a>
+                </div>
+                    <div id="title">
+                User Registration</div>
+            </header>
+            <nav class="menu">
+                <ul>
+                    <li><a href="homepage.html">Home</a></li>
+                    <li><a href="user_dashboard.html">User Dashboard </a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="login.html">Returning User</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="banner">
+            <div class= "welcome">
+                <h1>Please fill out the required fields to register a new account</h1>
+            </div>
+            <form class="registration-form" method="post" action="{% url 'registration' %}">
+                {% csrf_token %}
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" required><br><br>
+
+                <label for="birthdate">DOB:</label>
+                <input type="date" name="birthdate" id="birthdate" required><br><br>
+
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" required><br><br>
+
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required><br><br>
+
+                <input type="submit" value="Register">
+            </form>
+        </div>
+    </body>
 </html>

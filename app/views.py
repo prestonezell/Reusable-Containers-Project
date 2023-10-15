@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from app.forms import ProductStatusForm
 from django.contrib.auth.models import User
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login as auth_login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from app.models import Product, UserProduct
@@ -9,10 +12,41 @@ from app.models import Product, UserProduct
 
 
 # Create your views here.
+
+def update_product_status(request, product_id):
+    if request.method == 'POST':
+        print(request.POST)  # Check the received POST data
+        form = ProductStatusForm(request.POST)
+        print(form.is_valid())
+        try:
+            product = Product.objects.get(pk=product_id)
+            form = ProductStatusForm(request.POST)
+
+            if form.is_valid():
+                new_status = form.cleaned_data['status']
+                if new_status == 'collector':
+                    product.with_collector = True
+                    product.is_available = False
+                elif new_status == 'available':
+                    product.with_collector = False
+                    product.is_available = True
+                product.save()
+                return JsonResponse({'message': 'Status updated successfully'})
+            else:
+                return JsonResponse({'message': 'Form data is invalid'})
+
+        except Product.DoesNotExist:
+            return JsonResponse({'message': 'Product not found'})
+
+    return JsonResponse({'message': 'Invalid request method'})
+    
 def homepage(request):
     return render(request, 'app/homepage.html')
 
-def registration_view(request):
+def about(request):
+    return render(request, 'app/about.html')
+
+def registration(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -21,12 +55,12 @@ def registration_view(request):
         # Create a new user
         user = User.objects.create_user(username=username, password=password)
         # Log in the user immediately after registration
-        login(request, user)
-        return redirect('homepage')  # Redirect to the homepage after registration
+        auth_login(request, user)
+        return redirect('homepage.html')  # Redirect to the homepage after registration
 
     return render(request, 'app/registration.html')
 
-def user_login(request):
+def login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -36,13 +70,13 @@ def user_login(request):
 
         if user is not None:
             # The user is valid, log them in
-            login(request, user)
-            return redirect('user_dashboard')  # Redirect to the user dashboard
+            auth_login(request, user)
+            return redirect('user_dashboard.html')  # Redirect to the user dashboard
     
     return render(request, 'app/login.html')
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='login')
 def user_dashboard(request):
     # Get all UserProduct instances associated with the logged-in user
     user_products = Product.objects.filter(userproduct__user=request.user)
@@ -55,13 +89,7 @@ def user_logout(request):
     return redirect('homepage')
 
 def view_products(request):
-    products = Product.objects.filter(is_available=True)  # Retrieve all available products
-    
-    # Get products that the user has purchased
-    user_purchased_products = UserProduct.objects.filter(user=request.user).values_list('product', flat=True)
-    
-    # Exclude purchased products from the available products
-    products = products.exclude(id__in=user_purchased_products)
+    products = Product.objects.all()  # Retrieve all available products
     
     return render(request, 'app/view_products.html', {'products': products})
 

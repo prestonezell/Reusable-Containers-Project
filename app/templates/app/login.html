@@ -1,23 +1,47 @@
-<!-- login.html -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../static/login.css" />
     <title>Login</title>
 </head>
+
 <body>
-    <h1>Login</h1>
-    <form method="post" action="{% url 'login' %}">
-        {% csrf_token %}
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required><br><br>
+    <div class="head-nav">
+        <header>
+            <div id="logo">
+                <a href="homepage.html" class="homepage-button">
+                    <img src="{% static 'Logo_Transparent.png' %}">
+                </a>
+            </div>
+                <div id="title">
+                User Login
+                </div>
+        
+        </header>
+        <nav class="menu">
+            <ul>
+                <li><a href="homepage.html">Home</a></li>
+                <li><a href="user_dashboard.html">User Dashboard </a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="registration.html">New User</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="banner">
+        <form class="login-form" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <label for="username">User ID:</label>
+            <input type="text" name="username" id="username" required><br><br>
 
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required><br><br>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required><br><br>
 
-        <input type="submit" value="Login">
-    </form>
-    <button><a href="{% url 'homepage' %}" class="homepage-button">Homepage</a></button>
+            <br><input type="submit" value="Login">
+        </form>
+    </div>
 </body>
 </html>
+

@@ -1,46 +1,51 @@
-<!Doctype html>
-<html>
-<style>
-.btn-group button {
-  background-color: #04AA6D; /* Green background */
-  border: 1px solid green; /* Green border */
-  color: white; /* White text */
-  padding: 10px 24px; /* Some padding */
-  cursor: pointer; /* Pointer/hand icon */
-  float: left; /* Float the buttons side by side */
-}
-
-/* Clear floats (clearfix hack) */
-.btn-group:after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-.btn-group button:not(:last-child) {
-  border-right: none; /* Prevent double borders */
-}
-
-/* Add a background color on hover */
-.btn-group button:hover {
-  background-color: #3e8e41;
-}
-</style>
-
-<body>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../../static/homepage.css" />
+        <title>Homepage</title>
+    </head>
 
 
+    <body>
+        <div class="container">
+            <div class="head-nav">
+                <header>
+                    <div id="logo">
+                        <img src="{% static 'Logo_Transparent.png' %}">
+                    </div>
+                    <a href="homepage.html" class="homepage-button">
+                        <div id="title">
+                        Home</div>
+                    </a>
+                </header>
+                <nav class="menu"> 
 
-<h1>Hello</h1>
-
-<div class="btn-group">
-  <button><a href="{% url 'registration_view_name' %}" class="new-user-button">New User</a></button>
-  <button><a href="{% url 'login' %}" class="returning-user-button">Returning User</a></button>
-  <button><a href="{% url 'user_dashboard' %}" class="user-dashboard-button">User Dashboard</a></button>
-  <button><a href="{% url 'admin:index' %}" class="admin-link">Admin</a></button>
-</div>
-
-
-</body>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="user_dashboard.html">User Dashboard </a></li>
+                        <li><a href="login.html">Returning User </a></li>
+                        <li><a href="registration.html">New User </a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="banner"> 
+                <a href="login.html" class="returning-user-button">
+                    <div class="returning">
+                        <h1> RETURNING USER</h1>
+                        <p> Login HERE </p>
+                    </div>
+                </a>
+                <a href="registration.html" class="new-user-button">
+                    <div class="new">
+                        <h1> NEW USER</h1>
+                        <p> Register HERE </p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </body>
 
 </html>

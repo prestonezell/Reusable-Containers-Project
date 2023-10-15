@@ -1,25 +1,88 @@
 <!-- app/view_products.html -->
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../../static/view_products.css" />
     <title>Available Products</title>
 </head>
 <body>
-    <h1>Available Products</h1>
-    <button><a href="{% url 'user_dashboard' %}" class="user-dashboard-button">User Dashboard</a></button>
-    <button><a href="{% url 'homepage' %}" class="homepage-button">Homepage</a></button>
-    <ul>
-        {% for product in products %}
-            <li>
-                Brand: {{ product.brand_name }}<br>
-                Product Name: {{ product.product_name }}<br>
-                Material Type: {{ product.material_type }}<br>
-                Price: ${{ product.price }}<br>
-                <a href="{% url 'buy_product' product.id %}">Buy</a>
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="head-nav">
+        <header>
+            <div id="logo">
+                <a href="homepage.html" class="homepage-button">
+                    <img src="{% static 'Logo_Transparent.png' %}">
+                </a>
+            </div>
+                <div id="title">
+                    Browse Products
+                </div>
+        </header>
+        <nav class="menu">
+            <ul>
+                <li><a href="homepage.html">Home </a></li>
+                <li><a href="user_dashboard.html">User Dashboard </a></li>
+                <li><a href="login.html">Returning User </a></li>
+                <li><a href="track_products.html">Track Products </a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="banner">
+        <div class="container">
+            <div class="row">
+                <div class="column">
+                    <div class="content-box">
+                        <div class="image"><img src="{% static 'water_bottle.png' %}" style="width: 75px; height: 150px;"></div>
+                        <h2>Container Type 1</h2>
+                        
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="content-box">
+                        <div class="image"><img src="{% static 'spray_bottle.png' %}" style="width: 150px; height: 150px;"></div>
+                        <h2>Container Type 2</h2>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div class="content-box">
+                        <div class="image"><img src="{% static 'glass_bottle.webp' %}" style="width: 150px; height: 150px;"></div>
+                        <h2>Container Type 3</h2>
+                        
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="content-box">
+                        <div class="image"><img src="{% static 'metal.webp' %}" style="width: 150px; height: 150px;"></div>
+                        <h2>Container Type 4</h2>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="products-container">
+            <div class="product">
+                <h1>Available Products</h1>
+                <ul>
+                    {% for product in products %}
+                        <li>
+                            {{ product.product_name }} - Status: {{ product.get_status_display }}
+                            <form method="post" action="{% url 'update_product_status' product.id %}">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <button type="submit">Update Status</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <script src="{% static 'script.js' %}"></script>
+    </div>
+
 </body>
 </html>

@@ -1,37 +1,60 @@
 <!-- track_products.html -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Track Products with Collector</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../../static/track_products.css" />
+    <title>Tracking</title>
 </head>
-<body>
-    <h1>Products with Collector</h1>
-    <button><a href="{% url 'view_products' %}" class="view-products-button">View Products</a></button>
-    <button><a href="{% url 'user_dashboard' %}" class="user-dashboard-button">User Dashboard</a></button>
-    <button><a href="{% url 'homepage' %}" class="homepage-button">Homepage</a></button>
-    <button><a href="{% url 'user_logout' %}">Logout</a></button>
-    <ul>
-        {% for product in products_with_collector %}
-            <li>
-                Brand: {{ product.brand_name }}<br>
-                Product Name: {{ product.product_name }}<br>
-                Material Type: {{ product.material_type }}<br>
-                Price: ${{ product.price }}<br>
-                {% if user == product.user %}
-                    <a href="{% url 'transfer_to_plant' product.id %}">Transfer to Plant</a>
-                {% else %}
-                    <p></p>
-                {% endif %}
-                <form method="post" action="{% url 'return_product_to_available' product.id %}">
-                    {% csrf_token %}
-                    <button type="submit">Return to Available</button>
-                </form>
-            </li>
-        {% empty %}
-            <p>No products with the collector.</p>
-        {% endfor %}
-    </ul>
-</body>
+    <body>
+        <div class="container">
+            <div class="head-nav">
+                <header>
+                    <div id="logo">
+                        <a href="homepage.html" class="homepage-button">
+                            <img src="{% static 'Logo_Transparent.png' %}">
+                        </a>
+                    </div>
+                        <div id="title">
+                            Track Products
+                        </div>
+                </header>
+                <nav class="menu">
+                    <ul>
+                        <li><a href="homepage.html">Home </a></li>
+                        <li><a href="user_dashboard.html">User Dashboard </a></li>
+                        <li><a href="login.html">Returning User </a></li>
+                        <li><a href="view_products.html">View Products </a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="banner">
+                <div class="main">
+                    <ul class="box-list">
+                        {% for product in products_with_collector %}
+                            <li>
+                                Brand: {{ product.brand_name }}<br>
+                                Product Name: {{ product.product_name }}<br>
+                                Material Type: {{ product.material_type }}<br>
+                                Price: ${{ product.price }}<br>
+                                {% if user == product.user %}
+                                    <a href="{% url 'transfer_to_plant' product.id %}">Transfer to Plant</a>
+                                {% else %}
+                                    <p></p>
+                                {% endif %}
+                                <form method="post" action="{% url 'return_product_to_available' product.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit">Return to Available</button>
+                                </form>
+                            </li>
+                        {% empty %}
+                            <h1>No products with the collector.</h1>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <button class="logout-button"><a href="{% url 'user_logout' %}">Logout</a></button>
+        </div>
+    </body>
 </html>

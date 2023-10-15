@@ -20,14 +20,17 @@ from app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('update_product_status/<int:product_id>/', views.update_product_status, name='update_product_status'),
     path('', views.homepage, name='homepage'),
-    path('register/', views.registration_view, name='registration_view_name'),
-    path('login/', views.user_login, name='login'),
-    path('user_dashboard/', views.user_dashboard, name='user_dashboard'),
-    path('logout/', views.user_logout, name='user_logout'),
-    path('view-products/', views.view_products, name='view_products'),
+    path('homepage.html', views.homepage, name='homepage'),
+    path('registration.html', views.registration, name='registration'),
+    path('login.html', views.login, name='login'),
+    path('user_dashboard.html', views.user_dashboard, name='user_dashboard'),
+    path('about.html', views.about, name='about'),
+    path('logout.html', views.user_logout, name='user_logout'),
+    path('view_products.html', views.view_products, name='view_products'),
     path('buy/<int:product_id>/', views.buy_product, name='buy_product'),
     path('give-to-collector/<int:product_id>/', views.give_to_collector, name='give_to_collector'),
-    path('track_products/', views.track_products_with_collector, name='track_products_with_collector'),
+    path('track_products.html', views.track_products_with_collector, name='track_products_with_collector'),
     path('return-to-available/<int:product_id>/', views.return_product_to_available, name='return_product_to_available'),
 ]

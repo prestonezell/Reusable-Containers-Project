@@ -1,4 +1,12 @@
-<!-- myapp/checkout.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../../static/checkout.css" />
+    <title>Checkout</title>
+</head>
+
 <h1>Checkout</h1>
 <ul>
     {% for user_product in user_products %}
@@ -10,3 +18,38 @@
     {% csrf_token %}
     <button type="submit">Complete Checkout</button>
 </form>
+__________________________
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href='homepage.css' rel='stylesheet'>
+        <title>homepage</title>
+    </head>
+
+
+    <body>
+        <header>
+            <div id="logo">
+                <img src="{% static 'Logo_Transparent.png' %}">
+            </div>
+            <a href="about.html" class="about-button">
+                <div id="title">
+                About Us</div>
+            </a>
+        </header>
+        <nav class="menu"> 
+
+            <ul>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="login.html">Returning User </a></li>
+                <li><a href="user_dashboard.html">User Dashboard </a></li>
+                <li><a href="registration.html">New User </a></li>
+            </ul>
+        </nav>
+        
+    </body>
+
+</html>
+
