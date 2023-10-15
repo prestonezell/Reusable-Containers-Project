@@ -1,11 +1,8 @@
-# yourapp/tasks.py
-from background_task import background
+# collector_checker_logic.py
+from app.models import Product
+from django.utils import timezone
 
-@background(schedule=10)  # Schedule the task to run every 60 seconds (adjust as needed)
 def check_collector():
-    from app.models import Product
-    from django.utils import timezone
-
     products_with_collector = Product.objects.filter(with_collector=True)
 
     for product in products_with_collector:

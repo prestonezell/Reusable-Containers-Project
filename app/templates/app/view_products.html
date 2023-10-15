@@ -9,7 +9,7 @@
 <body>
     <h1>Available Products</h1>
     <button><a href="{% url 'user_dashboard' %}" class="user-dashboard-button">User Dashboard</a></button>
-    <button><a href="{% url 'homepage' %}" class="homepage-button">Homepage</a></button>
+    <button><a href="{% url 'user_logout' %}">Logout</a></button>
     <ul>
         {% for product in products %}
             <li>
