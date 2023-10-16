@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from app import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -34,3 +36,6 @@ urlpatterns = [
     path('track_products.html', views.track_products_with_collector, name='track_products_with_collector'),
     path('return-to-available/<int:product_id>/', views.return_product_to_available, name='return_product_to_available'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])

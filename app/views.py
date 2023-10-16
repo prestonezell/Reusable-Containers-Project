@@ -55,8 +55,10 @@ def registration(request):
         # Create a new user
         user = User.objects.create_user(username=username, password=password)
         # Log in the user immediately after registration
-        auth_login(request, user)
-        return redirect('homepage.html')  # Redirect to the homepage after registration
+
+        login(request, user)
+        return redirect('user_dashboard')  # Redirect to the user_dashboard after registration
+
 
     return render(request, 'app/registration.html')
 
@@ -81,8 +83,10 @@ def user_dashboard(request):
     # Get all UserProduct instances associated with the logged-in user
     user_products = Product.objects.filter(userproduct__user=request.user)
 
+    # Get products that are with the collector
+    products_with_collector = Product.objects.filter(with_collector=True)
     
-    return render(request, 'app/user_dashboard.html', {'user_products': user_products})
+    return render(request, 'app/user_dashboard.html', {'user_products': user_products, 'products_with_collector': products_with_collector,})
 
 def user_logout(request):
     logout(request)
@@ -136,7 +140,7 @@ def track_products_with_collector(request):
     # Retrieve products that are with the collector
     products_with_collector = Product.objects.filter(with_collector=True)
     
-    return render(request, 'app/track_products.html', {'products_with_collector': products_with_collector})
+    return render(request, 'app/user_dashboard.html', {'products_with_collector': products_with_collector})
 
 def return_product_to_available(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
