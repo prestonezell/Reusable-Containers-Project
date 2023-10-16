@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../../static/about.css" />
+        <title>About</title>
+    </head>
+
+
+    <body>
+        <header>
+            <div id="logo">
+                <img src="{% static 'Logo_Transparent.png' %}">
+            </div>
+            <a href="about.html" class="about-button">
+                <div id="title">
+                About Us</div>
+            </a>
+        </header>
+        <nav class="menu"> 
+
+            <ul>
+                <li><a href="about.html" class="about-button">About Us</a></li>
+                <li><a href="login.html" class="returning-user-button">Returning User </a></li>
+                <li><a href="user_dashboard.html" class="user-dashboard-button">User Dashboard </a></li>
+                <li><a href="registration.html" class="new-user-button">New User </a></li>
+            </ul>
+        </nav>
+        
+    </body>
+
+</html>
